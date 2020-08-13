@@ -1,0 +1,7 @@
+{
+    "env":{
+        "MONGO_USER": "empl-code-ch",
+        "MONGO_PASSWORD": "BrPffRhNribPfm3H",
+        "MONGO_DB": "employee-directory"
+    }
+}
