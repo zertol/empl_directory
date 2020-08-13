@@ -28,7 +28,7 @@ const employeesO = async (employeeIds) => {
 const departmentO = async (departmentId) => {
     try {
         const department = await Department.findById(departmentId);
-
+        console.log(1);
         return {
             ...department._doc,
             _id: department.id, //Virtual id stored by mongoose linking to the original
