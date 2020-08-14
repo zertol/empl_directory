@@ -5,25 +5,28 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import NoImg from '../../images/no-img.png';
+import EmployeeEdit from './EmployeeEdit';
 
-const useStyles = makeStyles(theme => {
-    return {
-        ...theme,
-        card: {
-            position: 'relative',
-            display: 'flex',
-            marginBottom: 20
-        },
-        image: {
-            minWidth: 200
-        }
+const useStyles = makeStyles({
+    card: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: 20,
+        paddingLeft: 10
+    },
+    image: {
+        width: '75px',
+        height: '75px',
+        borderRadius: '50%',
     }
+
 })
 
 const Employee = (props) => {
 
     const classes = useStyles();
-    const {employee} = props;
+    const { employee } = props;
 
     return (
         <Card className={classes.card}>
@@ -35,16 +38,12 @@ const Employee = (props) => {
             <CardContent className={classes.CardContent}>
                 <Typography variant="h5" color="primary">{employee.fname} {employee.lname}</Typography>
                 {/* {deleteButton} */}
-                <Typography variant="body2" color="textSecondary" component="p">{employee.title}</Typography>
-                <Typography variant="body1" color="textPrimary" component="p">Department: {employee.department}</Typography>
-                {/* <LikeButton screamId={scream.screamId} />
-                <span>{scream.likeCount}</span>
-                <MyButton tip="Comments">
-                    <ChatIcon color="primary" />
-                </MyButton>
-                <span>{scream.commentCount} comments</span>
-                <ScreamDialog screamId={scream.screamId} userHandle={scream.userHandle} openDialog={this.props.openDialog} /> */}
+                <Typography variant="body1" color="textPrimary" component="p">{employee.title}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p">Department: {employee.department.name}</Typography>
+                <EmployeeEdit employee={employee} />
             </CardContent>
+            
+            
         </Card>
     )
 };

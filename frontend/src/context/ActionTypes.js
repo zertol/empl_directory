@@ -1,1 +1,3 @@
+export const SET_EMPLOYEES = "SET_EMPLOYEE";
 export const ADD_EMPLOYEE = "ADD_EMPLOYEE";
+export const LOADING_DATA = "LOADING_DATA";
