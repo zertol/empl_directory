@@ -1,4 +1,4 @@
-import { ADD_PERSON, ADD_EMPLOYEE } from './actionTypes';
+import { ADD_PERSON, ADD_EMPLOYEE } from './ActionTypes';
 
 const addEmployee = (employee,state) => {
     const newEmployee = [

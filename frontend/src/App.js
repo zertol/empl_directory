@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import './App.css';
 import Layout from './hoc/Layout';
 import { Route, Switch } from 'react-router-dom';
-import EmployeeProvider from './context/EmployeeProvider';
+import {EmployeeProvider} from './context/EmployeeProvider';
 
 const Home = lazy(() => import('./pages/Home'));
 

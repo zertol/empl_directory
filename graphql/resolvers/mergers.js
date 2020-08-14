@@ -1,3 +1,6 @@
+const Employee = require('../../models/employee');
+const Department = require('../../models/department');
+
 /**
  * The below allows relational drilling wihtin grapql in a way when we request a property with a relation to another model we can
  * retrieve the data we want.
@@ -34,5 +37,15 @@ const departmentO = async (departmentId) => {
     }
 };
 
+//Transform an employee into the object schema we want
+const transformEmployee = (employee) => {
+    return {
+        ...employee._doc,
+        _id: employee.id,
+        department: departmentO.bind(this, employee._doc.department)
+    }
+}
+
 exports.employeesO = employeesO;
 exports.departmentO = departmentO;
+exports.transformEmployee = transformEmployee;

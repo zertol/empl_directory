@@ -1,21 +1,15 @@
-import { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { ADD_EMPLOYEE } from './ActionTypes';
 import EmployeeReducer from './EmployeeReducer';
 
+const initialState = {
+    employees: [],
+    addEmployee: (employee) => { },
+    loading: false
+}
+
 //Create Context
-const EmployeeContext = createContext({
-    employees: [{
-        id: "id",
-        fname: "fname",
-        lname: "lname",
-        title: "title",
-        email: "email@m.com",
-        department: {
-            name: "name"
-        }
-    }],
-    addEmployee: (employee) => { }
-});
+export const EmployeeContext = createContext(initialState);
 
 //Provider Component
 export const EmployeeProvider = ({ children }) => {
@@ -37,5 +31,3 @@ export const EmployeeProvider = ({ children }) => {
         </EmployeeContext.Provider>
     )
 }
-
-export default employeeContext;

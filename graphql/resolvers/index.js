@@ -1,19 +1,7 @@
 const Employee = require('../../models/employee');
 const Department = require('../../models/department');
-const { departmentO } = require('../resolvers/mergers');
+const { transformEmployee } = require('../resolvers/mergers');
 const mongoose = require('mongoose');
-
-
-
-
-//Transform an employee into the object schema we want
-const transformEmployee = (employee) => {
-    return {
-        ...employee._doc,
-        _id: employee.id,
-        department: departmentO.bind(this, employee._doc.department)
-    }
-}
 
 module.exports = {
     //Fetch employees
