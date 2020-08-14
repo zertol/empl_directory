@@ -1,44 +1,19 @@
 const Employee = require('../../models/employee');
 const Department = require('../../models/department');
+const { departmentO } = require('../resolvers/mergers');
 const mongoose = require('mongoose');
 
 
-/**
- * The below allows relational drilling wihtin grapql in a way when we request a property with a relation to another model we can
- * retrieve the data we want.
- * 
- */
-const employeesO = async (employeeIds) => {
-    try {
-        const employees = await Employee.find({ _id: { $in: employeeIds } });
 
-        return employees.map(employee => {
-            return {
-                ...employee._doc,
-                _id: employee.id,
-                department: departmentO.bind(this, employee._doc.department)
-            }
-        });
-    }
-    catch (err) {
-        throw err;
-    }
-};
 
-const departmentO = async (departmentId) => {
-    try {
-        const department = await Department.findById(departmentId);
-        console.log(1);
-        return {
-            ...department._doc,
-            _id: department.id, //Virtual id stored by mongoose linking to the original
-            employees: employeesO.bind(this, department._doc.employees)
-        }
+//Transform an employee into the object schema we want
+const transformEmployee = (employee) => {
+    return {
+        ...employee._doc,
+        _id: employee.id,
+        department: departmentO.bind(this, employee._doc.department)
     }
-    catch (err) {
-        throw err;
-    }
-};
+}
 
 module.exports = {
     //Fetch employees
@@ -47,11 +22,7 @@ module.exports = {
             const employees = await Employee.find();
 
             return employees.map(employee => {
-                return {
-                    ...employee._doc,
-                    _id: employee.id,
-                    department: departmentO.bind(this, employee._doc.department)
-                }
+                return transformEmployee(employee);
             })
 
         } catch (err) {
@@ -72,11 +43,7 @@ module.exports = {
         try {
             const empl = await employee.save();
 
-            employeeCreated = {
-                ...empl._doc,
-                _id: empl.id,
-                department: departmentO.bind(this, empl._doc.department)
-            };
+            employeeCreated = transformEmployee(empl);
 
             const departmentF = await Department.findById(args.employeeInput.departmentId);
 
@@ -112,11 +79,7 @@ module.exports = {
                         throw err;
                     }
                 });
-            return {
-                ...employee._doc,
-                _id: employee.id,
-                department: departmentO.bind(this, employee._doc.department)
-            }
+            return transformEmployee(employee);
 
         } catch (err) {
             throw err;
@@ -132,7 +95,7 @@ module.exports = {
 
             const objId = mongoose.Types.ObjectId(args.id);
 
-            await Department.update({_id: employee._doc.department}, {
+            await Department.update({ _id: employee._doc.department }, {
                 $pull: {
                     "employees": objId
                 }
