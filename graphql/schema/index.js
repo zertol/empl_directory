@@ -35,6 +35,7 @@ module.exports = buildSchema(`
 
         type RQuery{
             employees: [Employee!]!
+            departments: [Department!]!
         }
 
         type MQuery{

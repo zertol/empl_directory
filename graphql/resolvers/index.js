@@ -1,6 +1,6 @@
 const Employee = require('../../models/employee');
 const Department = require('../../models/department');
-const { transformEmployee } = require('../resolvers/mergers');
+const { transformEmployee, transformDepartment } = require('../resolvers/mergers');
 const mongoose = require('mongoose');
 
 module.exports = {
@@ -11,6 +11,20 @@ module.exports = {
 
             return employees.map(employee => {
                 return transformEmployee(employee);
+            })
+
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    //Fetch departments
+    departments: async() => {
+        try {
+            const departments = await Department.find();
+
+            return departments.map(department => {
+                return transformDepartment(department);
             })
 
         } catch (err) {
