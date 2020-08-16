@@ -39,6 +39,7 @@ module.exports = {
             lname: args.employeeInput.lname,
             title: args.employeeInput.title,
             location: args.employeeInput.location,
+            email: args.employeeInput.email,
             department: args.employeeInput.departmentId,
         });
         let employeeCreated;
@@ -67,20 +68,17 @@ module.exports = {
     updateEmployee: async args => {
         try {
             let employee = await Employee.findOneAndUpdate({
-                _id: args.employeeUpdate.id
+                _id: args.employeeUpdate._id
             },
                 {
                     $set: {
                         fname: args.employeeUpdate.fname,
                         lname: args.employeeUpdate.lname,
-                        email: args.employeeUpdate.email
+                        email: args.employeeUpdate.email,
+                        location: args.employeeUpdate.location
                     }
                 },
-                { new: true }, (err, empl) => {
-                    if (err) {
-                        throw err;
-                    }
-                });
+                { new: true });
             return transformEmployee(employee);
 
         } catch (err) {

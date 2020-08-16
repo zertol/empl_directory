@@ -5,16 +5,17 @@ module.exports = buildSchema(`
             fname: String!
             lname: String!
             title: String!
-            email: String
+            email: String!
             location: String!
             departmentId: String!
         }
 
         input EmployeeUpdate{
-            id: ID!
+            _id: ID!
             fname: String!
             lname: String!
-            email: String
+            email: String!
+            location: String!
         }
 
         type Employee{
@@ -22,7 +23,7 @@ module.exports = buildSchema(`
             fname: String!
             lname: String!
             title: String!
-            email: String
+            email: String!
             location: String!
             department: Department!
         }
